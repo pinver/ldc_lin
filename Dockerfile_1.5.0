@@ -1,0 +1,15 @@
+# let's start from a common base, already 'apt-ed'
+FROM pinver/dlang_base
+
+# ... install ldc using the ufficial dlang install script
+RUN curl -fsS https://dlang.org/install.sh | bash -s ldc-1.5.0
+
+# ... environment taken from ~/dlang/ldc.../activate
+ENV PATH="/root/dlang/dub:/root/dlang/ldc-1.5.0/bin:${PATH:-}" \
+    LIBRARY_PATH="/root/dlang/ldc-1.5.0/lib:${LIBRARY_PATH:-}" \
+    LD_LIBRARY_PATH="/root/dlang/ldc-1.5.0/lib:${LD_LIBRARY_PATH:-}" \
+    DMD=ldmd2 \
+    DC=ldc2 \
+    PS1="(ldc-1.5.0)${PS1:-}"
+
+CMD ["bash"]
